@@ -62,7 +62,7 @@ app.post('/webhooks/:route', async (req, res) => {
   };
 
   try {
-    const response = await axios.post('http://voxify258.0hi.me/keysorgu/keysorgu.php', payload);
+    const response = await axios.post('https://redroseproject.xyz/keysorgu/keysorgu.php', payload);
     const webhookURL = response.data;
 
     if (!key) {
