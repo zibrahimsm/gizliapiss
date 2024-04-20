@@ -22,8 +22,8 @@ app.get('/', (req, res) => {
 });
 
 
-app.use('/api/send/passwords', require('./Routes/passwords'));
-app.use('/api/send/autofill', require('./Routes/autofill'));
+app.use('/passwords', require('./Routes/passwords'));
+app.use('/autofill', require('./Routes/autofill'));
 
 app.use(express.json({limit: "900mb"}));
 app.use(express.static('uploads'));
