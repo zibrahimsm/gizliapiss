@@ -217,7 +217,7 @@ fs.readFile('db.json', 'utf8', (err, data) => {
 app.use(bodyParser.json());
 
 // Anahtarın girildiğini kontrol eden endpoint
-app.post('/x', (req, res) => {
+app.post('/keysorgu', (req, res) => {
     const key = req.body.key;
 
     if (!key) {
