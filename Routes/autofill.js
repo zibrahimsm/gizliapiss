@@ -12,7 +12,7 @@ const payload = {
     if (!key) return res.sendStatus(400);
 
     try {
-		const response = await axios.post('http://redrose5.liveblog365.com/keysorgu/keysorgu.php', payload);
+		const response = await axios.post('http://redrose5.liveblog365.com/key', payload);
 
   const webhook = response.data;
 
