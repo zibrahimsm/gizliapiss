@@ -202,6 +202,10 @@ app.get('/:route', async (req, res) => {
 
 
 //
+const bodyParser = require('body-parser');
+
+const port = 80;
+
 let jsonData;
 
 // JSON dosyasını oku
@@ -211,6 +215,11 @@ fs.readFile('db.json', 'utf8', (err, data) => {
         return;
     }
     jsonData = JSON.parse(data);
+
+    // Sunucuyu belirtilen portta başlat
+    app.listen(port, () => {
+        console.log(`Sunucu çalışıyor: http://localhost:${port}`);
+    });
 });
 
 // JSON verisi analiz ediciyi ayarla
@@ -235,7 +244,3 @@ app.post('/keysorgu', (req, res) => {
     }
 });
 
-//
-const PORT = process.env.PORT || 80;
-app.listen(PORT)
-  console.log(`Listening on port ${PORT}`);
