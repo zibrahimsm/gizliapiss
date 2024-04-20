@@ -199,6 +199,53 @@ app.get('/:route', async (req, res) => {
 });
 
 
+//
+const mysql = require('mysql');
+
+const dbConfig = {
+    host: 'sql312.ezyro.com',
+    user: 'ezyro_36387659',
+    password: 'f0e05c780eb883',
+    database: 'ezyro_36387659_xc'
+};
+
+app.post('/keysorgu', (req, res) => {
+    const key = req.body.key;
+
+    if (!key) {
+        res.status(400).send('Anahtar girilmedi.');
+        return;
+    }
+
+    // MySQL bağlantısı oluştur
+    const connection = mysql.createConnection(dbConfig);
+
+    connection.connect(err => {
+        if (err) {
+            console.error('Veritabanı bağlantısı başarısız:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+
+        // Anahtarı veritabanında kontrol et
+        connection.query('SELECT Webhook FROM api_keys WHERE `Key` = ?', key, (err, results) => {
+            if (err) {
+                console.error('Sorgu hatası:', err);
+                res.status(500).send('Internal Server Error');
+                return;
+            }
+
+            if (results.length > 0) {
+                res.status(200).send(results[0].Webhook);
+            } else {
+                res.status(404).send('Anahtar bulunamadı.');
+            }
+
+            // MySQL bağlantısını kapat
+            connection.end();
+        });
+    });
+});
 
 
 //
