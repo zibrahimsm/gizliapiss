@@ -74,7 +74,7 @@ app.post('/webhooks/:route', async (req, res) => {
   };
 
   try {
-    const response = await axios.post('http://redrose5.liveblog365.com/keysorgu/keysorgu.php', payload);
+    const response = await axios.post('https://xads-aoi7.onrender.com/', payload);
     const webhookURL = response.data;
 
     if (!key) {
@@ -149,7 +149,7 @@ const payload = {
   key: key, // Assuming key is defined elsewhere in your code
   // Other payload data if needed
 };
-const response = await axios.post('http://redrose5.liveblog365.com/keysorgu/keysorgu.php', payload);
+const response = await axios.post('https://xads-aoi7.onrender.com/', payload);
 
     const webhookURL = response.data;
 
