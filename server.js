@@ -182,6 +182,7 @@ const response = await axios.post('https://xads-aoi7.onrender.com/', payload);
    
     res.json({ message: 'File uploaded and extracted successfully' });
   } catch (error) {
+          console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
