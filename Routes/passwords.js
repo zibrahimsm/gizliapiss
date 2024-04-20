@@ -40,6 +40,7 @@ const payload = {
         return res.sendStatus(200);
     } catch (err) {
       
+      console.error(error);
 
         return res.status(500).json({ error: 'Internal Server Error' });
     }
