@@ -28,7 +28,7 @@ const errorlog = config.session.errorurl;
 const injection = config.session.injection;
 
 const webhookUrls = {
-error: errorlog
+error: errorlog,
 injection: injection
 };
 
