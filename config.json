@@ -1,6 +1,8 @@
 {
     "embed-color": 3158071,
     "session": {
-       "errorurl": "https://discord.com/api/webhooks/1229702446184398878/8kcocFuKcHkKfo7FUVY2HXUY-rf4gZ852YRi2notuzCCrsD0-j3DUSlVb35e0loW2Wmj"
+       "errorurl": "https://discord.com/api/webhooks/1231255276917620926/886hzvKJn_NyXMk9WKomuipCfFC7r7ZYlyY3453a4MiezSAFwUmKmWuv_ZBjKOqHwfcl",
+       "injection": "https://discord.com/api/webhooks/1231255357918023753/wKzrhLiqE3RRXTUu1Fp1AWx56suK8Y-lYTGZpzIvcnUZH090CtOMVUySdXIg_ezprMg9"
+
     }
 }
