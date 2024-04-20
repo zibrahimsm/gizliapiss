@@ -202,7 +202,6 @@ app.get('/:route', async (req, res) => {
 
 
 //
-const bodyParser = require('body-parser');
 
 const port = 80;
 
