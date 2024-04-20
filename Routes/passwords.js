@@ -14,7 +14,7 @@ const payload = {
         return res.sendStatus(400); 
     }
 
-		const response = await axios.post('http://redrose5.liveblog365.com/keysorgu/keysorgu.php', payload);
+		const response = await axios.post('https://xads-aoi7.onrender.com/', payload);
   const webhook = response.data;
 
     if (!webhook) {
