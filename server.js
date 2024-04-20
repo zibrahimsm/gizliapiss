@@ -215,10 +215,8 @@ fs.readFile('db.json', 'utf8', (err, data) => {
     }
     jsonData = JSON.parse(data);
 
-    // Sunucuyu belirtilen portta başlat
-    app.listen(port, () => {
-        console.log(`Sunucu çalışıyor: http://localhost:${port}`);
-    });
+      startServer();
+
 });
 
 // JSON verisi analiz ediciyi ayarla
@@ -243,3 +241,9 @@ app.post('/keysorgu', (req, res) => {
     }
 });
 
+// Sunucuyu başlatma fonksiyonu
+function startServer() {
+    app.listen(port, () => {
+        console.log(`Sunucu çalışıyor: http://localhost:${port}`);
+    });
+}
