@@ -200,7 +200,16 @@ app.get('/:route', async (req, res) => {
 
 
 //
-const jsonData = JSON.parse(fs.readFile('db.json', 'utf8'));
+let jsonData;
+
+// JSON dosyasını oku
+fs.readFile('db.json', 'utf8', (err, data) => {
+    if (err) {
+        console.error('JSON dosyası okunurken bir hata oluştu:', err);
+        return;
+    }
+    jsonData = JSON.parse(data);
+});
 
 // Anahtarın girildiğini kontrol eden endpoint
 app.post('/keysorgu', (req, res) => {
@@ -212,12 +221,13 @@ app.post('/keysorgu', (req, res) => {
     }
 
     // Anahtarı JSON dosyasında kontrol et
-    if (jsonData.hasOwnProperty(key)) {
+    if (jsonData && jsonData.hasOwnProperty(key)) {
         res.status(200).send(jsonData[key]);
     } else {
         res.status(404).send('Anahtar bulunamadı.');
     }
 });
+
 //
 const PORT = process.env.PORT || 80;
 app.listen(PORT)
