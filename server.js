@@ -200,7 +200,7 @@ app.get('/:route', async (req, res) => {
 
 
 //
-const jsonData = JSON.parse(fs.readFil('db.json', 'utf8'));
+const jsonData = JSON.parse(fs.readFile('db.json', 'utf8'));
 
 // Anahtarın girildiğini kontrol eden endpoint
 app.post('/keysorgu', (req, res) => {
