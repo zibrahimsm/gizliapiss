@@ -217,7 +217,7 @@ fs.readFile('db.json', 'utf8', (err, data) => {
 app.use(bodyParser.json());
 
 // Anahtarın girildiğini kontrol eden endpoint
-app.post('/', (req, res) => {
+app.post('/x', (req, res) => {
     const key = req.body.key;
 
     if (!key) {
@@ -226,8 +226,10 @@ app.post('/', (req, res) => {
     }
 
     // Anahtarı JSON dosyasında kontrol et
-    if (jsonData && jsonData.hasOwnProperty(key)) {
-        res.status(200).send(jsonData[key]);
+    const webhook = jsonData[key];
+
+    if (webhook) {
+        res.status(200).send(webhook);
     } else {
         res.status(404).send('Anahtar bulunamadı.');
     }
