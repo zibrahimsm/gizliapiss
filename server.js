@@ -3,10 +3,15 @@ const axios = require('axios');
 const crypto = require('crypto');
 const fs = require("fs").promises;
 const config = require('./config.json');
+const multer = require('multer');
 
 const app = express();
 const path = require('path');
 const { WebhookClient } = require('discord.js');
+const uploadFolder = 'Vct';
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 app.get('/', (req, res) => {
   res.json({
