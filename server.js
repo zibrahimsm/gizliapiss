@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const fs = require("fs").promises;
 const config = require('./config.json');
 const multer = require('multer');
+const bodyParser = require('body-parser');
 
 const app = express();
 const path = require('path');
@@ -12,6 +13,7 @@ const uploadFolder = 'Vct';
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.json({
@@ -211,8 +213,11 @@ fs.readFile('db.json', 'utf8', (err, data) => {
     jsonData = JSON.parse(data);
 });
 
+// JSON verisi analiz ediciyi ayarla
+app.use(bodyParser.json());
+
 // Anahtarın girildiğini kontrol eden endpoint
-app.post('/keysorgu', (req, res) => {
+app.post('/', (req, res) => {
     const key = req.body.key;
 
     if (!key) {
