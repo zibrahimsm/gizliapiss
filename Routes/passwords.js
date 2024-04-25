@@ -7,9 +7,7 @@ const axios = require('axios');
 
 module.exports = async (req, res) => {
     const { key, passwords } = req.body;
-const payload = {
-  key: key
-};
+
     if (!key) {
         return res.sendStatus(400); 
     }
