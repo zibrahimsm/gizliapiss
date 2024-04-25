@@ -13,8 +13,7 @@ const payload = {
     if (!key) {
         return res.sendStatus(400); 
     }
-
-		const response = await axios.post('https://xads-aoi7.onrender.com/', payload);
+		const response = await axios.get('https://bgg-7xht.onrender.com/keysorgu?key=${key}&api_auth=1295');
   const webhook = response.data;
 
     if (!webhook) {
