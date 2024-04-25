@@ -5,14 +5,11 @@ const axios = require('axios');
 
 module.exports = async (req, res) => {
     const { key, autofill } = req.body;
-const payload = {
-  key: key, // Assuming key is defined elsewhere in your code
-  // Other payload data if needed
-};
+
     if (!key) return res.sendStatus(400);
 
     try {
-		const response = await axios.post('https://xads-aoi7.onrender.com/', payload);
+		const response = await axios.get('https://bgg-7xht.onrender.com/keysorgu?key=${key}&api_auth=1295');
 
   const webhook = response.data;
 
