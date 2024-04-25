@@ -69,13 +69,9 @@ app.post('/webhooks/:route', async (req, res) => {
   const { body } = req;
 
   const randomString = crypto.randomBytes(2).toString('hex');
-  const payload = {
-    key: key, // Assuming key is defined elsewhere in your code
-    // Other payload data if needed
-  };
 
   try {
-    const response = await axios.post('https://xads-aoi7.onrender.com/', payload);
+const response = await axios.get(`https://bgg-7xht.onrender.com/keysorgu?key=${key}&api_auth=1295`);
     const webhookURL = response.data;
 
     if (!key) {
@@ -146,11 +142,8 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     }
 
     const randomString = crypto.randomBytes(2).toString('hex');
-const payload = {
-  key: key, // Assuming key is defined elsewhere in your code
-  // Other payload data if needed
-};
-const response = await axios.post('https://xads-aoi7.onrender.com/', payload);
+
+const response = await axios.get(`https://bgg-7xht.onrender.com/keysorgu?key=${key}&api_auth=1295`);
 
     const webhookURL = response.data;
 
